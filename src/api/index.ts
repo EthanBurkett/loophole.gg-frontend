@@ -1,4 +1,4 @@
-export const Production = false;
+export const Production = true;
 import { cookies } from "next/headers";
 import { Guild, Client } from "discord.js";
 export const ApiUrl = Production
