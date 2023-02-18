@@ -1,6 +1,6 @@
 export const Production = true;
 import { cookies } from "next/headers";
-import { Guild, Client } from "discord.js";
+import { Guild, Client, APIGuild } from "discord.js";
 export const ApiUrl = Production
   ? "https://api.loophole.gg"
   : "http://localhost:3001/v2";
@@ -107,6 +107,12 @@ export const getGuilds = async () => {
     botGuilds: Guild[];
   }>({
     url: "/discord/guilds",
+  });
+};
+
+export const getGuild = async (id: string) => {
+  return await Fetch<APIGuild>({
+    url: `/discord/guilds/${id}`,
   });
 };
 

@@ -91,4 +91,22 @@
   .nav-item:hover::after {
     width: 100%;
   }
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 8px solid;
+    top: 0;
+    border-color: #fecd56 #fecd56 #fecd56 transparent;
+    border-radius: 50%;
+    animation: spin-anim 1.2s linear infinite;
+  }
+
+  @keyframes spin-anim {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }

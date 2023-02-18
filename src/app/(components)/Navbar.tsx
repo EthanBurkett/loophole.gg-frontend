@@ -12,7 +12,7 @@ type Props = {
 
 const Navbar = ({ user }: Props) => {
   return (
-    <div className="w-screen h-16 flex justify-between items-center px-12 absolute bg-[#181A20] border-b-[2px] border-b-[#0E1015] py-6">
+    <div className="w-screen h-16 z-50 flex justify-between items-center px-12 absolute bg-[#181A20] border-b-[2px] border-b-[#0E1015] py-6">
       <div className="flex flex-row items-center gap-12">
         <Link href="/">
           <div className="flex flex-row items-center justify-center">

@@ -5,6 +5,7 @@ import React from "react";
 import { Guild } from "discord.js";
 import { ScriptProps } from "next/script";
 import Link from "next/link";
+import Loading from "../(components)/Loading";
 
 type Props = {};
 
@@ -22,10 +23,15 @@ const page = async (props: Props) => {
     redirect("/dashboard");
   }
   const { nonbotGuilds, mutuals, botGuilds } = api.guilds.data!;
-  console.log(botGuilds);
+  if (!nonbotGuilds || !mutuals || !botGuilds) {
+    setTimeout(() => {
+      redirect("/dashboard?retry_after=1");
+    }, (api.guilds.data as any).retry_after);
+    return <Loading text="guilds" />;
+  }
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <ul className=" relative w-full h-3/4 flex flex-wrap flex-shrink gap-x-6 gap-y-12 justify-center items-center overflow-y-scroll px-2 py-12">
+      <ul className=" relative w-full h-3/4 flex flex-wrap flex-shrink gap-x-6 gap-y-12 justify-center items-center overflow-y-scroll px-12 py-12">
         {mutuals.map((guild) => (
           <GuildEl botGuilds={botGuilds} key={guild.id} guild={guild} />
         ))}
@@ -66,7 +72,7 @@ const GuildEl = ({
         className="rounded-full absolute -top-[20%] border-4 border-[#0e1015] bg-[#181A20]"
       />
     </div>
-    <div className="flex flex-col gap-2 p-2 py-5 h-1/2 justify-start items-start">
+    <div className="flex flex-col gap-2 p-2 py-5 h-1/2 justify-self-end justify-start items-start">
       <div className="text-lg font-bold whitespace-pre-line">{guild.name}</div>
       {botGuilds.find((g) => g?.id === guild.id) ? (
         <div className="text-lg px-5 py-2 bg-[#2E323D] rounded-lg cursor-default">
@@ -86,9 +92,10 @@ const GuildEl = ({
           }
           href={
             botGuilds.find((g) => g?.id === guild.id)
-              ? `/dashboard/${guild.id}`
+              ? `/configure/${guild.id}`
               : `https://discord.com/oauth2/authorize?scope=bot%20applications.commands&permissions=296150887647&client_id=1067254655932968990&guild_id=${guild.id}`
-          }>
+          }
+        >
           <div className="flex flex-row items-center gap-4 text-lg font-semibold border-2 border-[#fecd56] p-1 px-2 rounded-lg cursor-pointer hover:text-[#464058] hover:bg-[#fecd56] transition-all">
             {buttonText}
           </div>
