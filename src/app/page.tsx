@@ -17,8 +17,12 @@ export default async function Home() {
         </p>
         <p></p>
       </div>
-      <div className="flex flex-col h-1/2 justify-start items-start">
-        <h1 className="text-3xl">Loophole</h1>
+      <div className="flex flex-col h-1/2 w-1/2 justify-start text-center items-start">
+        <h1 className="text-3xl w-3/4 whitespace-pre-wrap text-center">
+          THIS SITE IS UNFINISHED. Sole purpose of it being public is to test
+          API calls to make sure everything is functional in production linear
+          to development.
+        </h1>
       </div>
     </main>
   );

@@ -8,7 +8,8 @@ const Logo = (props: { size?: number }) => {
       height={props.size || 128}
       viewBox="0 0 1080 1080"
       preserveAspectRatio="xMinYMin meet"
-      className="path">
+      className="path"
+    >
       <path
         style={{
           fill: "transparent",
