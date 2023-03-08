@@ -1,6 +1,6 @@
 export const Production = true;
 import { cookies } from "next/headers";
-import { Guild, Client, APIGuild } from "discord.js";
+import { Guild, Client, APIGuild, Role, APIRole } from "discord.js";
 export const ApiUrl = Production
   ? "https://api.loophole.gg"
   : "http://localhost:3001/v2";
@@ -39,11 +39,20 @@ export const Fetch = async <T>({
     },
   })
     .then(async (d) => {
-      const data = await d.json();
-      if (data.error) throw new Error(data.error);
-      return {
-        data,
-      };
+      try {
+        const data = await d.json().catch((e) => {});
+
+        return {
+          data,
+        };
+      } catch (e: any) {
+        return {
+          error: {
+            message: e.message,
+            detailed: e,
+          },
+        };
+      }
     })
     .catch((e) => {
       return {
@@ -119,5 +128,11 @@ export const getGuild = async (id: string) => {
 export const getUserCount = async () => {
   return await Fetch<{ count: number }>({
     url: "/discord/usercount",
+  });
+};
+
+export const getRoles = async (id: string) => {
+  return await Fetch<APIRole[]>({
+    url: `/discord/guilds/roles/${id}`,
   });
 };

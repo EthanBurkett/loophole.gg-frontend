@@ -1,4 +1,5 @@
 import { getUserCount } from "@/api";
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const userCount = await getUserCount();

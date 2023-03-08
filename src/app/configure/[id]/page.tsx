@@ -12,22 +12,11 @@ type Props = {
 const page = async ({ params }: Props) => {
   const guild = await getGuild(params.id);
 
-  console.log(guild);
-
-  if (
-    guild.error ||
-    !guild.data ||
-    (guild.data as any).msg?.toLowerCase() == "error"
-  ) {
+  if (!guild.data || guild.error) {
     notFound();
   }
 
-  return (
-    <>
-      <Sidebar guild={guild.data} />
-      <div className="w-full h-full overflow-hidden flex justify-center items-center"></div>
-    </>
-  );
+  return <>main</>;
 };
 
 export default page;
